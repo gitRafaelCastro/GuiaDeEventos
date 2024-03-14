@@ -18,6 +18,7 @@ public class Main {
     private static Usuario usuarioAutenticado = null;
     private static Scanner scanner = new Scanner(System.in);
 
+
     public static void main(String[] args) {
         // Carregar eventos do arquivo
         List<Evento> eventosCarregados = ArquivoManager.lerEventos();
@@ -126,8 +127,10 @@ public class Main {
 
             System.out.println("Digite o horário do evento (formato: dia/mês/ano hora:minutos):");
             String horarioString = scanner.nextLine();
-            LocalDateTime horario = LocalDateTime.parse(horarioString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:ss"));
+            LocalDateTime horario = LocalDateTime.parse(horarioString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
+            // DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
+            //    LocalDate date = LocalDate.parse(userInput, dateFormat);
             System.out.println("Digite a descrição do evento:");
             String descricao = scanner.nextLine();
 
@@ -144,9 +147,17 @@ public class Main {
         if (eventos.isEmpty()) {
             System.out.println("Não há eventos cadastrados.");
         } else {
-            System.out.println("Eventos cadastrados:");
+            System.out.println("Eventos cadastrados:\n*Eventos marcados com um X estão com sua presença confirmada.\n");
             for (Evento evento : eventos) {
-                System.out.println(evento.getNome() + " - " + evento.getHorarioFormatado());
+                String confirmacaoParticipacao = "";
+                if (usuarioAutenticado != null) {
+                    if (managerEvento.usuarioConfirmouParticipacao(evento, usuarioAutenticado)) {
+                        confirmacaoParticipacao = "[x] ";
+                    } else {
+                        confirmacaoParticipacao = "[ ] ";
+                    }
+                }
+                System.out.println(confirmacaoParticipacao + evento.getNome() + " - " + evento.getHorarioFormatado());
             }
         }
     }

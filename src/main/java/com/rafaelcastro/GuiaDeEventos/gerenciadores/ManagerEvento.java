@@ -47,6 +47,15 @@ public class ManagerEvento {
     return eventosCopia;
   }
 
+  public boolean usuarioConfirmouParticipacao(Evento evento, Usuario usuario) {
+    for (ParticipacaoEvento participacao : participacoes) {
+      if (participacao.getEvento().equals(evento) && participacao.getUsuario().equals(usuario)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private static class ParticipacaoEvento {
     private Evento evento;
     private Usuario usuario;

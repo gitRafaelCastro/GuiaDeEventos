@@ -2,6 +2,8 @@ package com.rafaelcastro.GuiaDeEventos.modelo;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Evento {
@@ -38,8 +40,9 @@ public class Evento {
   }
 
   public String getHorarioFormatado() {
-    DateTimeFormatter horarioFormatado = DateTimeFormatter.ofPattern("E, dd/MM/yyyy HH:ss");
-    return (horario.format(horarioFormatado));
+
+    ZonedDateTime zonedDateTime = ZonedDateTime.ofLocal(horario, ZoneId.of("America/Sao_Paulo"), null);
+    return (zonedDateTime.format(DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM 'de' yyyy 'às' HH:mm")));
   }
 
 
