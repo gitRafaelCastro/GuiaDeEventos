@@ -7,7 +7,6 @@ public class Usuario {
   private String nome;
   private String email;
   private String telefone;
-  private int id;
 
 
   public Usuario(String nome, String email, String telefone) {
