@@ -25,24 +25,12 @@ public class Evento {
     return nome;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
   public String getEndereco() {
     return endereco;
   }
 
-  public void setEndereco(String endereco) {
-    this.endereco = endereco;
-  }
-
   public Categoria getCategoria() {
     return categoria;
-  }
-
-  public void setCategoria(Categoria categoria) {
-    this.categoria = categoria;
   }
 
   public LocalDateTime getHorario() {
@@ -54,15 +42,9 @@ public class Evento {
     return (horario.format(horarioFormatado));
   }
 
-  public void setHorario(LocalDateTime horario) {
-    this.horario = horario;
-  }
 
   public String getDescricao() {
     return descricao;
   }
 
-  public void setDescricao(String descricao) {
-    this.descricao = descricao;
-  }
 }

@@ -2,10 +2,8 @@ package com.rafaelcastro.GuiaDeEventos.gerenciadores;
 
 import com.rafaelcastro.GuiaDeEventos.modelo.Evento;
 import com.rafaelcastro.GuiaDeEventos.modelo.Usuario;
-import jdk.jfr.Event;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -24,10 +22,6 @@ public class ManagerEvento {
 
   public void cadastrarEvento(Evento evento) {
     eventos.add(evento);
-  }
-
-  public void removerEvento(Evento evento) {
-    eventos.remove(evento);
   }
 
   public void confirmarParticipacao(Evento evento, Usuario usuario) {

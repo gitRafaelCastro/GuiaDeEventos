@@ -17,22 +17,6 @@ public class Usuario {
 
   }
 
-  public void setNome(String novoNome) {
-    this.nome = novoNome;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public void setTelefone(String telefone) {
-    this.telefone = telefone;
-  }
-
   public String getNome() {
     return nome;
   }

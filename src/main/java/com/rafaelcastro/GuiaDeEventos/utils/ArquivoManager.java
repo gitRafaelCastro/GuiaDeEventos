@@ -2,7 +2,6 @@ package com.rafaelcastro.GuiaDeEventos.utils;
 
 import com.rafaelcastro.GuiaDeEventos.modelo.Categoria;
 import com.rafaelcastro.GuiaDeEventos.modelo.Evento;
-import com.rafaelcastro.GuiaDeEventos.modelo.Usuario;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
