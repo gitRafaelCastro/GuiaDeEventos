@@ -43,12 +43,7 @@ public class ManagerEvento {
 
   public List<Evento> ordenarEventosPorHorario() {
     List<Evento> eventosCopia = new ArrayList<>(eventos);
-    eventosCopia.sort(new Comparator<Evento>() {
-      @Override
-      public int compare(Evento evento1, Evento evento2) {
-        return evento1.getHorario().compareTo(evento2.getHorario());
-      }
-    });
+    eventosCopia.sort((evento1, evento2) -> evento1.getHorario().compareTo(evento2.getHorario()));
     return eventosCopia;
   }
 
