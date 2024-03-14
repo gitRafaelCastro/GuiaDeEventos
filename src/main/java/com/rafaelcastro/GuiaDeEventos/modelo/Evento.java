@@ -14,6 +14,7 @@ public class Evento {
   private Categoria categoria;
   private LocalDateTime horario;
   private String descricao;
+  private int confirmados;
 
   public Evento(String nome, String endereco, Categoria categoria, LocalDateTime horario, String descricao) {
     this.nome = nome;
@@ -21,6 +22,7 @@ public class Evento {
     this.categoria = categoria;
     this.horario = horario;
     this.descricao = descricao;
+    this.confirmados = 0;
   }
 
   public String getNome() {
@@ -48,6 +50,22 @@ public class Evento {
 
   public String getDescricao() {
     return descricao;
+  }
+
+  public int consultarConfirmados() {
+    return confirmados;
+  }
+
+  public void aumentarConfirmados() {
+    confirmados += 1;
+  }
+
+  public void diminuirConfirmados() {
+    confirmados -= 1;
+
+    if (confirmados < 0) {
+      confirmados = 0;
+    }
   }
 
 }

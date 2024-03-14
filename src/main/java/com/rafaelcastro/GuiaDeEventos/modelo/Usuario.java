@@ -29,7 +29,4 @@ public class Usuario {
     return telefone;
   }
 
-  public int getId() {
-    return id;
-  }
 }

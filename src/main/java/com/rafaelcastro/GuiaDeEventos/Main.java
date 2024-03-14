@@ -95,6 +95,8 @@ public class Main {
         Usuario novoUsuario = new Usuario(nome, email, telefone);
         managerUsuario.cadastrarUsuario(novoUsuario);
         System.out.println("Usuário cadastrado com sucesso!");
+
+        aguardarEnterParaContinuar();
     }
 
     private static void autenticarUsuario() {
@@ -111,6 +113,8 @@ public class Main {
         } else {
             System.out.println("Credenciais inválidas. Tente novamente.");
         }
+
+        aguardarEnterParaContinuar();
     }
 
     private static void cadastrarEvento() {
@@ -128,38 +132,50 @@ public class Main {
             System.out.println("Digite o horário do evento (formato: dia/mês/ano hora:minutos):");
             String horarioString = scanner.nextLine();
             LocalDateTime horario = LocalDateTime.parse(horarioString, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-
-            // DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("M/d/yyyy");
-            //    LocalDate date = LocalDate.parse(userInput, dateFormat);
             System.out.println("Digite a descrição do evento:");
             String descricao = scanner.nextLine();
 
             Evento novoEvento = new Evento(nome, endereco, categoria, horario, descricao);
             managerEvento.cadastrarEvento(novoEvento);
             System.out.println("Evento cadastrado com sucesso!");
+            aguardarEnterParaContinuar();
         } else {
             System.out.println("Você precisa estar autenticado para cadastrar um evento.");
+            aguardarEnterParaContinuar();
         }
+
+
     }
 
     private static void consultarEventos() {
         List<Evento> eventos = managerEvento.consultarEventos();
         if (eventos.isEmpty()) {
             System.out.println("Não há eventos cadastrados.");
+
         } else {
             System.out.println("Eventos cadastrados:\n*Eventos marcados com um X estão com sua presença confirmada.\n");
             for (Evento evento : eventos) {
                 String confirmacaoParticipacao = "";
                 if (usuarioAutenticado != null) {
                     if (managerEvento.usuarioConfirmouParticipacao(evento, usuarioAutenticado)) {
-                        confirmacaoParticipacao = "[x] ";
+                        confirmacaoParticipacao = " [x]";
                     } else {
-                        confirmacaoParticipacao = "[ ] ";
+                        confirmacaoParticipacao = " [ ]";
                     }
                 }
-                System.out.println(confirmacaoParticipacao + evento.getNome() + " - " + evento.getHorarioFormatado());
+                System.out.println("============\n"
+                        + evento.getNome() + confirmacaoParticipacao + "\n"
+                        + "Categoria: " + evento.getCategoria().getNome() + "\n"
+                        + "Sobre: " +evento.getDescricao() + "\n"
+                        + "Dia e horário: " + evento.getHorarioFormatado() + "\n"
+                        + "Endereço: " + evento.getEndereco() + "\n"
+                        + "(" + evento.consultarConfirmados() + " presença(s) confirmada(s))"
+                        + "\n" );
             }
+
+
         }
+        aguardarEnterParaContinuar();
     }
 
     private static void confirmarParticipacao() {
@@ -177,9 +193,12 @@ public class Main {
         if (eventoEncontrado != null) {
             managerEvento.confirmarParticipacao(eventoEncontrado, usuarioAutenticado);
             System.out.println("Participação confirmada no evento: " + eventoEncontrado.getNome());
+            eventoEncontrado.aumentarConfirmados();
         } else {
             System.out.println("Evento não encontrado.");
         }
+
+        aguardarEnterParaContinuar();
     }
 
     private static void cancelarParticipacao() {
@@ -197,32 +216,43 @@ public class Main {
         if (eventoEncontrado != null) {
             managerEvento.cancelarParticipacao(eventoEncontrado, usuarioAutenticado);
             System.out.println("Participação cancelada no evento: " + eventoEncontrado.getNome());
+            eventoEncontrado.diminuirConfirmados();
         } else {
             System.out.println("Evento não encontrado.");
         }
+
+        aguardarEnterParaContinuar();
     }
 
     private static void consultarEventosProximos() {
         List<Evento> eventosProximos = managerEvento.ordenarEventosPorHorario();
         LocalDateTime agora = LocalDateTime.now();
 
-        System.out.println("Eventos próximos:");
+        System.out.println("Eventos próximos:\n");
         for (Evento evento : eventosProximos) {
             if (evento.getHorario().isAfter(agora)) {
-                System.out.println(evento.getNome() + " - " + evento.getHorario());
+                System.out.println(evento.getNome() + " - " + evento.getHorarioFormatado());
             }
         }
+
+        aguardarEnterParaContinuar();
     }
 
     private static void consultarEventosPassados() {
         List<Evento> eventosPassados = managerEvento.ordenarEventosPorHorario();
         LocalDateTime agora = LocalDateTime.now();
 
-        System.out.println("Eventos passados:");
+        System.out.println("Eventos passados:\n");
         for (Evento evento : eventosPassados) {
             if (evento.getHorario().isBefore(agora)) {
-                System.out.println(evento.getNome() + " - " + evento.getHorario());
+                System.out.println(evento.getNome() + " - " + evento.getHorarioFormatado());
             }
         }
+
+        aguardarEnterParaContinuar();
+    }
+    public static void aguardarEnterParaContinuar() {
+        System.out.println("\nPressione Enter para continuar...");
+        scanner.nextLine(); // Aguarda o usuário pressionar Enter
     }
 }
