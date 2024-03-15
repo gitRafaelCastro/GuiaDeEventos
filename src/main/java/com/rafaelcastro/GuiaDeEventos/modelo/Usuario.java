@@ -1,6 +1,5 @@
 package com.rafaelcastro.GuiaDeEventos.modelo;
 
-
 public class Usuario {
 
   // Usuario: Representará um usuário cadastrado no sistema, com atributos como nome, email, telefone, etc.
